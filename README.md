@@ -16,38 +16,6 @@ Construir uma arquitetura integrada de ponta a ponta que elimine o uso de chaves
 
 ---
 
-## Fluxo de Funcionamento e Lógica de Acesso
-
-[ Usuário ] ──(Posiciona Digital)──► [ Sensor R307 ]
-│
-(UART / Serial)
-▼
-[ ESP32 Node ]
-│
-(HTTP POST / Wi-Fi)
-▼
-[ API REST (FastAPI) ]
-│
-(Consulta SQL)
-▼
-[ Banco PostgreSQL ]
-│
-┌────────────────────────────┴────────────────────────────┐
-▼                                                         ▼
-[ Retorno: AUTORIZADO ]                                   [ Retorno: NEGADO ]
-│                                                         │
-┌────────────┴────────────┐                               ┌────────────┴────────────┐
-▼                         ▼                               ▼                         ▼
-[ Relé / Fechadura 12V ]  [ OLED / LED Verde ]          [ LED Vermelho ]          [ Buzzer ]
-(Pulso de Abertura)      (Mensagem de Boas-vindas)      (Feedback Visual)        (Alarme Sonoro)
-│                                                         │
-└────────────────────────────┬────────────────────────────┘
-▼
-[ Gravação do Log na Tabela ACESSO ]
-▲
-│ (Consulta / Gestão)
-[ Aplicativo Flutter ]
-
 ### Regras de Negócio Fundamentais
 1. **Autorização Positiva:** Ocorre apenas se o `template_id` da digital for reconhecido localmente no R307 e o backend confirmar que o usuário correspondente possui status `ativo = true`.
 2. **Negação por Usuário Inativo:** Se a digital for reconhecida mas o usuário estiver inativo no banco, a fechadura permanece bloqueada e a tentativa é registrada como `NEGADO_INATIVO`.
@@ -57,7 +25,7 @@ Construir uma arquitetura integrada de ponta a ponta que elimine o uso de chaves
 
 ---
 
-## 🛠️ Stack Tecnológica e Hardware
+## Stack Tecnológica e Hardware
 
 ### 1. Hardware e Eletrônica
 * **Microcontrolador:** ESP32 DevKit v1 (30 pinos, Wi-Fi integrado 2.4 GHz).
@@ -75,7 +43,7 @@ Construir uma arquitetura integrada de ponta a ponta que elimine o uso de chaves
 
 ---
 
-## 📂 Estrutura do Repositório (Monorepo)
+## Estrutura do Repositório (Monorepo)
 
 O projeto está centralizado em um único repositório para garantir consistência de versões e testes integrados contínuos:
 
