@@ -1,0 +1,7 @@
+# Fora da imagem: segredos, ambiente virtual e lixo de execução.
+.env
+venv/
+__pycache__/
+*.pyc
+.vscode/
+.idea/

@@ -1,0 +1,57 @@
+# SecureLab: sobe a API (FastAPI) e o banco (PostgreSQL) juntos.
+#
+# Uso (na raiz do repositório):
+#   1. copy .env.example .env      (e preencha o .env)
+#   2. docker compose up --build
+#   3. abra http://127.0.0.1:8000/docs
+#
+# Detalhes e solução de problemas: backend/README.md, seção "Alternativa: rodar tudo com Docker".
+
+name: securelab
+
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: "${DB_PASSWORD:?Defina DB_PASSWORD no arquivo .env na raiz do repositorio}"
+      POSTGRES_DB: securelab
+      TZ: America/Sao_Paulo
+    volumes:
+      # Dados do banco ficam neste volume e sobrevivem a "docker compose down".
+      - pgdata:/var/lib/postgresql/data
+      # Os scripts abaixo rodam UMA vez, só quando o banco é criado do zero (volume vazio).
+      - ./database/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+      # Dados de exemplo (opcional): tire o "#" da linha abaixo ANTES da primeira subida.
+      # - ./database/seeds/seed.sql:/docker-entrypoint-initdb.d/02-seed.sql:ro
+    ports:
+      # Só o próprio computador alcança o banco (para o pgAdmin: host 127.0.0.1, porta 5433).
+      # A porta 5433 evita conflito com um PostgreSQL já instalado na 5432.
+      - "127.0.0.1:5433:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d securelab"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+
+  api:
+    build: ./backend
+    restart: unless-stopped
+    # Senhas e chaves vêm do .env da raiz (nunca ficam dentro da imagem).
+    env_file: .env
+    environment:
+      # Dentro da rede do Docker, o banco é alcançado pelo nome do serviço ("db").
+      DB_HOST: db
+      DB_PORT: "5432"
+      DB_USER: postgres
+      DB_NAME: securelab
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      # Aberta na rede local para o ESP32 e o app alcançarem a API pelo IP do computador.
+      - "8000:8000"
+
+volumes:
+  pgdata:
