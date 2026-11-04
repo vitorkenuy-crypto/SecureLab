@@ -1,0 +1,27 @@
+# ---- Python / API ----
+backend/venv/
+__pycache__/
+*.pyc
+.env
+backend/securelab_local.db
+pronto.txt
+
+# ---- Flutter ----
+.dart_tool/
+build/
+.flutter-plugins-dependencies
+.idea/
+*.iml
+mobile/android/local.properties
+mobile/android/.gradle/
+mobile/ios/Flutter/ephemeral/
+mobile/ios/Flutter/Generated.xcconfig
+mobile/ios/Flutter/flutter_export_environment.sh
+
+# Prototipo antigo e SDK local
+APP/
+flutter/
+
+# ---- Outros ----
+*.zip
+Thumbs.db

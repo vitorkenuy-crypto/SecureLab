@@ -1,0 +1,8 @@
+{
+  "python.defaultInterpreterPath": "${workspaceFolder}/backend/venv/Scripts/python.exe",
+  "files.exclude": {
+    "**/__pycache__": true,
+    "mobile/.dart_tool": true,
+    "mobile/build": true
+  }
+}

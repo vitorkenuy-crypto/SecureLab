@@ -1,0 +1,28 @@
+SECURELAB - COMO TESTAR
+=======================
+
+1. Extraia o zip (botão direito > Extrair Tudo). Não rode de dentro do zip.
+
+2. Dê dois cliques em RODAR_SECURELAB.bat
+   - Na primeira vez ele instala o que falta sozinho (5 a 10 minutos).
+   - Se aparecer "O Windows protegeu o computador": Mais informações > Executar assim mesmo.
+   - Se o Windows perguntar sobre o Firewall: marque "Redes privadas" e clique em Permitir.
+
+3. O app abre no navegador. Login: admin   Senha: admin123
+
+4. Para simular alguém colocando o dedo no sensor (sem hardware):
+   dois cliques em SIMULAR_DIGITAL.bat
+     digital 1 = Ana (ativa)      -> AUTORIZADO
+     digital 2 = Bruno (ativo)    -> AUTORIZADO
+     digital 3 = Carla (inativa)  -> NEGADO
+     digital 99 = desconhecida    -> NEGADO
+
+5. Abrir o app no celular: o celular precisa estar no mesmo Wi-Fi do PC.
+   Use o endereço que aparece na janela preta, "App no celular" (ex.: http://192.168.0.15:8000/app).
+
+6. ESP32 de verdade (Vitor): veja firmware\securelab_esp32\LEIA-ME.md
+
+Para desligar: feche a janela preta.
+Para voltar aos dados de exemplo: feche a janela preta e rode ZERAR_BANCO.bat.
+
+Os dados de teste ficam só no PC de quem está testando (backend\securelab_local.db).
