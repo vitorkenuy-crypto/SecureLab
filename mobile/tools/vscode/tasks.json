@@ -1,0 +1,63 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Simular leitura do ESP32",
+      "type": "shell",
+      "command": "powershell",
+      "args": [
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "${workspaceFolder}\\tools\\simular_esp32.ps1",
+        "-Template",
+        "${input:template}",
+        "-Dispositivo",
+        "${input:dispositivo}"
+      ],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared",
+        "clear": false
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Banco: abrir instrucoes de reset",
+      "type": "shell",
+      "command": "powershell",
+      "args": [
+        "-Command",
+        "Write-Host 'O SecureLab usa o PostgreSQL de ..\\backend. Para resetar, execute manualmente os scripts de database\\ no workspace principal.'"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "Testes do app (flutter test)",
+      "type": "shell",
+      "command": "flutter test",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": []
+    }
+  ],
+  "inputs": [
+    {
+      "id": "template",
+      "type": "promptString",
+      "description": "Numero da digital lida pelo sensor (1 = Ana, 2 = Bruno, 3 = Carla inativa, 99 = desconhecida)",
+      "default": "1"
+    },
+    {
+      "id": "dispositivo",
+      "type": "pickString",
+      "description": "Em qual porta? 1 = Porta Lab 1, 2 = Sala de Servidores",
+      "options": [
+        "1",
+        "2"
+      ],
+      "default": "1"
+    }
+  ]
+}

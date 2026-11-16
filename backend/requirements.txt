@@ -1,0 +1,11 @@
+fastapi
+uvicorn[standard]
+sqlalchemy
+psycopg2-binary
+python-dotenv
+python-multipart
+python-jose[cryptography]
+passlib==1.7.4
+# Fixado de propósito: bcrypt 4.1+ é incompatível com o passlib 1.7.4
+# (erro "module 'bcrypt' has no attribute '__about__'" ao gerar/verificar senhas).
+bcrypt==4.0.1

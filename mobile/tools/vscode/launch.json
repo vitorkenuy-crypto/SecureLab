@@ -1,0 +1,70 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "API principal (PostgreSQL)",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "uvicorn",
+      "args": [
+        "main:app",
+        "--host",
+        "0.0.0.0",
+        "--port",
+        "8000"
+      ],
+      "cwd": "${workspaceFolder}/../backend",
+      "python": "${workspaceFolder}/../backend/venv/Scripts/python.exe",
+      "justMyCode": true
+    },
+    {
+      "name": "App no navegador (Edge)",
+      "type": "dart",
+      "request": "launch",
+      "program": "lib/main.dart",
+      "cwd": "${workspaceFolder}",
+      "deviceId": "edge"
+    },
+    {
+      "name": "API principal (alternativo)",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "uvicorn",
+      "args": [
+        "main:app",
+        "--host",
+        "0.0.0.0",
+        "--port",
+        "8000"
+      ],
+      "cwd": "${workspaceFolder}/../backend",
+      "python": "${workspaceFolder}/../backend/venv/Scripts/python.exe",
+      "justMyCode": true
+    },
+    {
+      "name": "App (emulador ou celular)",
+      "type": "dart",
+      "request": "launch",
+      "program": "lib/main.dart",
+      "cwd": "${workspaceFolder}"
+    }
+  ],
+  "compounds": [
+    {
+      "name": "SecureLab (tudo local)",
+      "configurations": [
+        "API principal (PostgreSQL)",
+        "App no navegador (Edge)"
+      ],
+      "stopAll": true
+    },
+    {
+      "name": "SecureLab (PostgreSQL + emulador)",
+      "configurations": [
+        "API principal (alternativo)",
+        "App (emulador ou celular)"
+      ],
+      "stopAll": true
+    }
+  ]
+}
