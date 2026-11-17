@@ -6,3 +6,7 @@ __pycache__/
 .idea/
 /flutter/
 /firmware/include/config.h
+.venv/
+.dart_tool/
+build/
+.pio/

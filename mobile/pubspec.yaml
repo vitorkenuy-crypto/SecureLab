@@ -11,8 +11,9 @@ dependencies:
     sdk: flutter
   http: ^1.2.2
   shared_preferences: ^2.3.2
-  google_fonts: ^6.2.1
+  google_fonts: ^9.0.0
 
+  material_ui: any
 dev_dependencies:
   flutter_test:
     sdk: flutter
